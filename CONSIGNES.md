@@ -61,6 +61,7 @@ o rechercher un livre,
 o afficher les emprunts, etc.
 ## 2.4 POO
 Créez au minimum les classes suivantes :
+```python
 class Livre:
 pass
 class Utilisateur:
@@ -71,6 +72,7 @@ class Bibliothecaire(Utilisateur):
 pass
 class Bibliotheque:
 pass
+```
 La classe Bibliotheque sera le cœur du système, centralisant les listes et gérant toutes les
 opérations.
 ## 2.5 Gestion des erreurs
@@ -87,6 +89,6 @@ opérations.
 8. Date d’emprunt / retour automatique avec le module datetime.
 9. Système de pénalité : afficher un message si un livre est gardé plus de 14 jours.
 # Livrables attendus
-• Un dossier contenant :
-o Le code source complet (.py)
-o Un court fichier README.txt expliquant comment exécuter le programme.
+- Un dossier contenant :
+- Le code source complet (.py)
+- Un court fichier README.txt expliquant comment exécuter le programme.
