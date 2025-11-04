@@ -1,12 +1,6 @@
-'''
+from modules import livre
+from modules import utilisateur
+
 class Bibliotheque:
-pass
-class Livre:
-pass
-class Utilisateur:
-pass
-class Lecteur(Utilisateur):
-pass
-class Bibliothecaire(Utilisateur):
-pass
-'''
+    def __init__(self):
+        pass
