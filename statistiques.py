@@ -16,7 +16,7 @@ Remarques:
 from typing import Iterable, Dict
 import pandas as pd
 import matplotlib.pyplot as plt
-
+from modules.bibliotheque import Bibliotheque 
 def dataframe_livres(livres: Iterable) -> pd.DataFrame:
     rows = []
     for lv in livres:
