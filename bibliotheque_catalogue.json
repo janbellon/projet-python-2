@@ -1,0 +1,26 @@
+{
+    "id_counter": 4,
+    "livres": [
+        {
+            "id_livre": 1,
+            "titre": "1984",
+            "auteur": "George Orwell",
+            "categorie": "Roman",
+            "statut": "Disponible"
+        },
+        {
+            "id_livre": 2,
+            "titre": "Dune",
+            "auteur": "Frank Herbert",
+            "categorie": "Roman SF",
+            "statut": "Disponible"
+        },
+        {
+            "id_livre": 3,
+            "titre": "Le Petit Prince",
+            "auteur": "Antoine de Saint-Exupéry",
+            "categorie": "Conte",
+            "statut": "Disponible"
+        }
+    ]
+}
