@@ -1,7 +1,5 @@
 from modules.livre import Livre
 import hashlib
-import time
-import base64
 
 class Utilisateur:
     _id_counter = 1
