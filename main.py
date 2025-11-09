@@ -5,7 +5,7 @@ import sys
 
 #==================== Imports principaux =========================
 
-# ===== Cœur projet =====
+# ===== Coeur projet =====
 from modules.bibliotheque import Bibliotheque
 from modules.utilisateur import Lecteur, Bibliothecaire, Admin
 
