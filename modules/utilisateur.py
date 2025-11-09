@@ -1,18 +1,23 @@
 from modules.livre import Livre
 import hashlib
+import time
+import base64
 
 class Utilisateur:
     _id_counter = 1
-    def __init__(self, nom, email, password):
-        self.uuid : int = self._id_counter
-        self._id_counter += 1
+
+    def generer_uuid(self):
+        uuid = Utilisateur._id_counter
+        Utilisateur._id_counter += 1
+        return uuid
 
 class Lecteur(Utilisateur):
     def __init__(self, nom, email, password):
+        self.role = 1
         self.nom : str = nom
         self.email : str = email
-        self.password : str = hashlib.sha256(password)
-        self.role = 1
+        self.password : str = hashlib.sha256(password.encode())
+        self.uuid : int = self.generer_uuid()
 
     def emprunter(self):
         id_livre = int(input("\nID du livre à emprunter \n -> "))
@@ -26,10 +31,11 @@ class Lecteur(Utilisateur):
 
 class Bibliothecaire(Utilisateur):
     def __init__(self, nom, email, password):
+        self.role = 2
         self.nom : str = nom
         self.email : str = email
-        self.password : str = hashlib.sha256(password)
-        self.role = 2
+        self.password : str = hashlib.sha256(password.encode())
+        self.uuid : int = self.generer_uuid()
 
     def ajouter(self):
         titre = input(f"\nTitre du livre \n -> ")
@@ -50,3 +56,11 @@ class Bibliothecaire(Utilisateur):
     def supprimer(self):
         id_livre = int(input("\nID du livre à supprimer \n -> "))
         Livre.supp(id_livre)
+
+class Admin(Utilisateur):
+    def __init__(self, nom, email, password):
+        self.role = 99
+        self.nom : str = nom
+        self.email : str = email
+        self.password : str = hashlib.sha256(password.encode())
+        self.uuid : int = self.generer_uuid()
