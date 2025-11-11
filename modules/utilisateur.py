@@ -21,14 +21,20 @@ class Lecteur(Utilisateur):
     def emprunter(self):
         id_livre = int(input("\nID du livre à emprunter \n -> "))
         livre = Bibliotheque.trouver_par_id(id_livre)
-        # Vérifier que le livre est disponible
-        livre.modifier(statut="emprunté")
+        if livre.statut == "disponible":
+            livre.modifier(statut="emprunté")
+            return
+        else:
+            print("Livre indisponible")
 
     def rendre(self):
         id_livre = int(input("\nID du livre à rendre \n -> "))
         livre = Bibliotheque.trouver_par_id(id_livre)
-        # Vérifier que le livre est emprunté par la personne
-        livre.modifier(statut="disponible")
+        if livre.statut == "disponible":
+            print("Livre déjà rendu")
+            return
+        else:
+            livre.modifier(statut="disponible")
 
 class Bibliothecaire(Utilisateur):
     def __init__(self, nom, email, password):
