@@ -1,0 +1,23 @@
+{
+    "id_counter": 3,
+    "users": [
+        {
+            "role": 1,
+            "nom": "Utilisateur 1",
+            "email": "user1@gmail.com",
+            "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
+        },
+        {
+            "role": 1,
+            "nom": "Utilisateur 2",
+            "email": "user2@gmail.com",
+            "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
+        },
+        {
+            "role": 2,
+            "nom": "Bibliothecaire 2",
+            "email": "biblio@gmail.com",
+            "password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
+        }
+    ]
+}

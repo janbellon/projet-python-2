@@ -1,7 +1,8 @@
 # main.py — Menu "Utilisateurs" central + sous-menus par rôles
 from typing import Dict, Union
 import sys
-
+import hashlib
+from getpass import getpass
 
 #==================== Imports principaux =========================
 
@@ -90,24 +91,27 @@ def menu_utilisateurs():
         if ch == "1":
             nom = _input("Nom: ").strip()
             email = _input("Email: ").strip()
-            pwd = _input("Mot de passe: ")
-            u = Lecteur(nom, email, pwd)
+            pwd = getpass("Mot de passe: ")
+            pwd_hash = hashlib.sha256(pwd.encode()).hexdigest()
+            u = Lecteur(nom, email, pwd_hash)
             utilisateurs[u.uuid] = u
             print(f"Lecteur créé → ID {u.uuid} | {u.nom} <{u.email}> (role=Lecteur)")
 
         elif ch == "2":
             nom = _input("Nom: ").strip()
             email = _input("Email: ").strip()
-            pwd = _input("Mot de passe: ")
-            u = Bibliothecaire(nom, email, pwd)
+            pwd = getpass("Mot de passe: ")
+            pwd_hash = hashlib.sha256(pwd.encode()).hexdigest()
+            u = Bibliothecaire(nom, email, pwd_hash)
             utilisateurs[u.uuid] = u
             print(f"Bibliothécaire créé → ID {u.uuid} | {u.nom} <{u.email}> (role=Bibliothécaire)")
 
         elif ch == "3":
             nom = _input("Nom: ").strip()
             email = _input("Email: ").strip()
-            pwd = _input("Mot de passe: ")
-            u = Admin(nom, email, pwd)
+            pwd = getpass("Mot de passe: ")
+            pwd_hash = hashlib.sha256(pwd.encode()).hexdigest()
+            u = Admin(nom, email, pwd_hash)
             utilisateurs[u.uuid] = u
             print(f"Admin créé → ID {u.uuid} | {u.nom} <{u.email}> (role=Admin)")
 
@@ -129,7 +133,15 @@ def menu_utilisateurs():
             if not u:
                 print("Utilisateur introuvable.")
                 continue
-            demarrer_session(u)
+
+            # Saisie du mot de passe
+            password = getpass("Mot de passe : ")
+            password_hash = hashlib.sha256(password.encode()).hexdigest()
+
+            if u.password == password_hash:
+                demarrer_session(u)
+            else:
+                print("Mot de passe incorrect")
 
         elif ch == "6":
             break
@@ -219,11 +231,12 @@ def menu_session_admin(u: Admin):
         print(f"\n=== Session Admin — {u.nom} (ID {u.uuid}) ===")
         print("1. Statistiques / Graphes")
         print("2. Exporter catalogue (CSV)")
-        print("3. Sauvegarder / Charger (JSON)")
-        print("4. Résumé global")
-        print("5. Outils Rechercher / Filtrer / Trier")
-        print("6. Voir le catalogue")
-        print("7. Déconnexion")
+        print("3. Sauvegarder / Charger le catalogue (JSON)")
+        print("4. Sauvegarder / Charger les utilisateurs (JSON)")
+        print("5. Résumé global")
+        print("6. Outils Rechercher / Filtrer / Trier")
+        print("7. Voir le catalogue")
+        print("8. Déconnexion")
         ch = _input("Votre choix: ").strip()
         livres = Bibliotheque.livres
 
@@ -247,15 +260,18 @@ def menu_session_admin(u: Admin):
             _menu_persistance()
 
         elif ch == "4":
-            Bibliotheque.save_resume_json("bibliotheque_resume.json", print_resume=True)
+            _menu_users_persistance()
 
         elif ch == "5":
-            _outils_recherche_tri()
+            Bibliotheque.save_resume_json("bibliotheque_resume.json", print_resume=True)
 
         elif ch == "6":
-            Bibliotheque.historique()
+            _outils_recherche_tri()
 
         elif ch == "7":
+            Bibliotheque.historique()
+
+        elif ch == "8":
             print("Déconnexion.")
             break
         else:
@@ -333,6 +349,24 @@ def _menu_persistance():
         else:
             print("Choix invalide.")
 
+def _menu_users_persistance():
+    while True:
+        print("\n--- Sauvegarder / Charger ---")
+        print("1. Sauvegarder Utilisateurs (JSON)")
+        print("2. Charger Utilisateurs (JSON)")
+        print("3. Retour")
+        ch = _input("Votre choix: ").strip()
+        if ch == "1":
+            fn = _input("Nom fichier (défaut: bibliotheque_utilisateurs.json): ").strip() or "bibliotheque_utilisateurs.json"
+            Admin.save_users_json(fn, utilisateurs)
+        elif ch == "2":
+            fn = _input("Nom fichier (défaut: bibliotheque_utilisateurs.json): ").strip() or "bibliotheque_utilisateurs.json"
+            Admin.load_users_json(fn, utilisateurs)
+        elif ch == "3":
+            break
+        else:
+            print("Choix invalide.")
+
 
 # ======================= FallBacks =======================
 def _afficher_res(livres):
@@ -384,5 +418,14 @@ def _fallback_export_csv(livres, out_csv):
 
 # ======================= Entrée =======================
 if __name__ == "__main__":
+
+    # Création de l'utilisateur admin (ID: 1, password: admin)
+    nom = "Administrateur"
+    email = "admin@projet2.py"
+    pwd = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+    u = Admin(nom, email, pwd)
+    utilisateurs[u.uuid] = u
+
+    # Lancement du menu principal
     menu_principal()
 
