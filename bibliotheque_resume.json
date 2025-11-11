@@ -1,1 +1,29 @@
-{}
+{
+    "1984": {
+        "titre": "1984",
+        "auteurs": [
+            "George Orwell"
+        ],
+        "nb_total": 1,
+        "nb_disponible": 1,
+        "nb_emprunte": 0
+    },
+    "dune": {
+        "titre": "Dune",
+        "auteurs": [
+            "Frank Herbert"
+        ],
+        "nb_total": 1,
+        "nb_disponible": 1,
+        "nb_emprunte": 0
+    },
+    "le petit prince": {
+        "titre": "Le Petit Prince",
+        "auteurs": [
+            "Antoine de Saint-Exupéry"
+        ],
+        "nb_total": 1,
+        "nb_disponible": 1,
+        "nb_emprunte": 0
+    }
+}

@@ -1,5 +1,6 @@
 from modules.livre import Livre
 import hashlib
+from modules.bibliotheque import Bibliotheque
 
 class Utilisateur:
     _id_counter = 1
@@ -19,13 +20,15 @@ class Lecteur(Utilisateur):
 
     def emprunter(self):
         id_livre = int(input("\nID du livre à emprunter \n -> "))
+        livre = Bibliotheque.trouver_par_id(id_livre)
         # Vérifier que le livre est disponible
-        Livre.modifier(id_livre, statut="emprunte")
+        livre.modifier(statut="emprunté")
 
     def rendre(self):
         id_livre = int(input("\nID du livre à rendre \n -> "))
+        livre = Bibliotheque.trouver_par_id(id_livre)
         # Vérifier que le livre est emprunté par la personne
-        Livre.modifier(id_livre, statut="disponible")
+        livre.modifier(statut="disponible")
 
 class Bibliothecaire(Utilisateur):
     def __init__(self, nom, email, password):
